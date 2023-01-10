@@ -1,0 +1,11 @@
+[Service]
+Type=forking
+Restart=no
+RestartSec=1
+TimeoutSec=5min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=yes
+RemainAfterExit=no
+ExecStart=/home/steam/.config/init.d/cs16-hlds1 start
+ExecStop=/home/steam/.config/init.d/cs16-hlds1 stop 

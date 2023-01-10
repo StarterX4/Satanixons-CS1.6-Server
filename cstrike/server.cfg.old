@@ -1,0 +1,174 @@
+// server.cfg PL
+// by _KaszpiR_ and PawelS
+// ver 0.7.1 2006-11-11
+ 
+// odpal hlds z parametrem +servercfgfile server.cfg
+// na przyklad ./hlds_run -game cstrike +map de_dust +servercfgfile server.cfg
+ 
+// config ma parametry przygotowanie na serwer ffa
+ 
+// konfiguracja podstawowa
+sv_lan 0 //ustaw na 1 jesli to jest serwer wylacznie na lan
+maxplayers 22 //maksymalna ilosc graczy, pamietaj ze systemy rezerwacji slotow na serwerze zabieraa przewaznie 2 sloty
+sv_visiblemaxplayers -1 // liczba widocznych slotow na serwerze, jesli -1 to jest automatycznie obliczana (standard)
+                        // ale wtedy trzeba recznie w konsoli napisc adres serwera aby sie podlaczyc (jesli serwer pelny)
+                        // ustawiasz np te wartosc na 20 a masz maxplayers 22 i w rzeczywistosci masz 2 wolne sloty na serwerze 
+ 
+exec banned.cfg // laduj bany steamid/wonid
+exec listip.cfg // laduj bany na ip
+ 
+hostname "Counter-Strike 1.6" // nazwa serwera widziana poprzez przegladarki serwerow (np w favourities)
+mapchangecfgfile "server.cfg" // wykonaj ten confgi podczas zmiany mapy (np aby przywrocic stare ustawienia )
+mapcyclefile "mapcycle.txt" // plik zawiera liste map wg ktorych bedzie sie grac po zakonczeniu rozgrywki 
+motdfile "motd.html" // nazwa pliku do wyswietlenia jak sie wchodzi na serwer, to czego ludzie nie czytaja :)
+servercfgfile "server.cfg" // plik z glownymi ustawieniami na serwerze, odpalany przy pierwszym starcie 
+ 
+sv_proxies 1 // liczba hltv proxy jakie moga sie podlaczyc do serwera, standard 1, wiecej nie zalecane
+sv_region 3 // domyslne 0 - swiat, a poniewaz jestesmy w europie ustawiamy na 3
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// wydajnosc
+fps_max 100 // ile fps serwer powinien miec srednio, najlepiej aby byla okolo 100, ale nie wieksza od 200
+            // inaczej serwer zzera za duzo procesora
+host_framerate 0 // cholera wie co to jest
+sys_ticrate 200 // wartosc 125 jest zalecana, najlepiej nie miec wiecej niz 200, niektore mecze wymagaja 1000, ale firmy hostingowe moga forsowac te wartosc na nizsze
+                // 10 000 jest wartoscia ekstremalna, jedynie na lany dla wymiataczy
+                // przewaznie zzera tylko niepotrzebnie procesor
+        
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// net
+sv_maxrate 20000 // maksymalna wartosc jaka serwer moze wyslac do kazdego klienta z osobna,
+                // ustawianie wartosci ponizej 4000 zlaguje graczy i serwer, na lan maksymalna wartoœæ 25000
+                // na serwer internetowy - zalezy do lacza, sprobuj z 9999 jesli masz lagi, ewentualnie sukcesywnie zmniejszaj o 500
+ 
+sv_maxupdaterate 80 // maksymalna wartosc jaka klient moze miec przy cl_updaterate, 
+                    // jesli ma wiecej to bedzie mial tracone pakiety
+ 
+sv_minrate 0 // minimalna wartosc jaka serwer moze wyslac do kazdego klienta z osobna, domyslnie 4000,
+            // ustawanie wartosci powyzej 6000 zlaguje serwer i graczy
+            // zaleca sie trzymanie wartosci 0 ze wzgledu na serwery HLTV - po prostu mozna zaoszczedzic kase za lacze
+ 
+sv_minupdaterate 10 // minimalna wartosc jaka klient musi miec przy cl_updaterate, 
+                    // zaleca sie trzymanie wartosci 10 ze wzgledu na serwery HLTV
+ 
+sv_maxunlag 1 // maksymalny czas w sekundach kompensacji lagow
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// rcon i hasla
+sv_password "" // wymagane haslo aby sie podlaczyc do serwera, 
+                //ustawnaie najczesciej na serwery klanowe albo podczas meczu
+ 
+//rcon_password "" // haslo na rcon, nie zalecane aby tu umeszczac, lepiej jesli dasz w parametrach odpalania serwera
+                     // jesli ustawisz "" to rcon nie bedzie dzialal
+                     // np +rcon_password "zupa"
+ 
+sv_rcon_banpenalty 60 //czas bana za probe uzycia zlego rcon'a za wielokrotne proby (banuje na ip), 0 to na zawsze
+sv_rcon_minfailures 5 // limit zlych komend rcon aby dostac ban'a
+sv_rcon_minfailuretime 30 // czas w jakim sa sprawdzane proby rcon, 
+// jak ktos zle wpisze rcon_password (albo nie poda) i wykona zbyt wiele komend rcon to dostanie bana
+// wtedy pomaga jedynie restart serwera, poniewaz po odbanowaniu kazdy blad spowoduje zalozenie na nowo bana
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// logi
+// zaleca sie zachowanie ponizszych ustawien jesli chcesz uzywac HLStats albo PsychoStats
+mp_logdetail 3 // poziom logow, 0 - wylacz, 1 - tylko trafienia przeciwnika standard , 2, - tylko trafienia tp, 3 - loguj oba (tp i wroga)
+mp_logecho 1 // 1 - wlacza logowanie komendy echo, 0 - wylacza, np jak masz w server.cfg echo SERVER CFG LOADED to bedziesz mial to logowane
+mp_logfile 1 // logowanie wydarzen multiplayer (koniec rundy itp), 1 - tak (standard), 0 - nie
+mp_logmessages 1 // loguj komendy say (chat), 1 - tak (standard), 0 - nie
+sv_logbans 1 // loguj dawanie banow, 1 - tak (standard), 0 - nie
+sv_logblocks 1 // loguj blokowane proby zmiany zastrzezonych wartosci zmiennych, 1 - tak (standard), 0 - nie 
+sv_logrelay 1 // loguj podlaczenia hltv relay proxy, 1 - tak (standard), 0 - nie
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// voice
+sv_voicecodec "voice_speex" // rodzaj kodeka, domyslnie voice_miles, zalecany voice_speex - lepsza jakosc kosztem kilku procent uzycia procesora
+sv_voiceenable 1 // uzywaj opcji voice na serwerze, 1 - tak (domyslnie), 0 - nie
+sv_voicequality 3 // jakosc glosu, od 1 do 5, im wiecej tym lepiej ale wieksze uzyci proca i sieci, domyslnie 3
+sv_alltalk 0 // 0 - (domyslnie) voice mozna uzywac tylko jesli zywy i tylko do tp, 1 - kazdy moze gadac z kazdym (dobre na poczatek i koniec meczu)
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// downlad
+// zaleca sie zachowanie ponizszych wartosci aby nie miec problemow ze sciaganiem plikow z serwera
+hpk_maxsize 0.5 // maksymalny rozmiar sumy wszstkich logo graczy na serwerze, w megabajtach
+                // rekomendowana wartosc do 2 mega
+                // ustawianie zbyt wysokich warosci spowoduje ze gracze beda disconnectowani (bo musza to zassac),
+                // a serwer bedzie sie wolniej ladowal
+                // 1 MB = 100 bitmap
+sv_allowdownload 1 // pozwalaj na download, 1 - tak (standard), 0 - nie
+sv_allowupload 1 // pozwalaj na upload (np loga), 1 - tak (standard), 0 - nie
+sv_send_logos 1 //pozwalaj na wysylanie logo graczy (sprej na sciane)
+sv_send_resources 1 // pozwalaj na dowload listy wymaganych plikow aby grac na mapie, 1 - tak (standard), 0 - nie
+//sv_downloadurl "http://szambo/hlds/dlurl/" // url do lokacji skad mozna zasysac pliki serwerowe (pamietaj aby ograniczyc dostep do waznych plikow  - katalog addons, server.cfg itp)
+sv_downloadurl "http://bagno/hlds/" 
+mp_decals 300 // maximum wyswietlanych logo itp na serwerze
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// rozgrywka
+mp_autoteambalance 0 // przerzucaj graczy do innych druzyn jesli nierowne sklady, 0 - nie (domyslnie), 1 - tak
+mp_buytime 0.25 // czas kupowania na pocz rundy, w ulamku minuty ( jedna minuta = 1.0, 30 sekund = 0.25)
+mp_c4timer 35 // czas w sekundach na rozbrojenie bomby (bo inaczej bedzie bum :), domyslnie 35
+mp_consistency 1 // 0 - nie pozwol graczom na uzywanie wlasnych modeli postaci i broni (standard) , 0 -  pozwalaj (bo czituja)
+mp_flashlight 1 // 1 - mozna uzywac latarki (standard), 0 - latarka zablokowana
+mp_footsteps 1 // 1 - slychac kroki graczy podczas biegu (standard), 0 - wylaczone (quake 1 mode), dobre do cwiczenia refleksu :)
+mp_freezetime 6 // czas w sekundach wstrzymania na poczatku rundy (na reload i kupno broni), ustaw na 0 na mapach aim
+mp_friendly_grenade_damage 1 // 0 - granaty nie rania tp (ale zabiebraja armor), 1 - granaty rania graczy z druzyny (standard)
+mp_friendlyfire 1 // 0 - jak strzelasz do swoich to ich nie ranisz, 1 - ranisz swoich (standard)
+mp_ghostfrequency 0.1 // czestosc odswiezania stanu dla obserwatorow
+mp_hostagepenalty 0 // ilosc zabic zakladnikow po ktorym dostajesz kicka, 0 - wylaczone
+mp_limitteams 0 // ilu graczy moze byc niesymetrycznie po jedej z druzyn, 0 - bez limitu, 2 - maxymalnie moze byc w jednej z druzyn 2 graczy wiecej
+mp_maxrounds 0 // maksymalna liczba rund do grania, 0 - brak limitu (standard)
+mp_mirrordamage 0 // jak trafiasz swojego to tak jabys trafial siebie, domyslnie 0, 1 - wlacza (nie zalecane)
+mp_payerid 0 // wyswietla nick gracza po nacelowaniu, 0 - widac wsztkich (w kolorach) (standard), 1 - tylko tp i zakladnicy, 2 - nikogo nie pokazuje
+mp_roundtime 1.75 // czas trwania rundy w minutach , standard to 3 minuty, albo 1.75 na szybkie rozgrywki (aby sie nie nudzic na obsie), wartosci od 1 do 9
+mp_startmoney 800 // liczba kasy na poczatku rundy
+mp_timelimit 20 // limit czasu grania na mapie (po nim nastepuje zmiana mapy), w minutach, ustaw na 0 na brak limitu czasu, 
+mp_tkpunish 0 // karanie smiercia na poczatku nastepnej rundy za zabicie swojego, 0 - nie (domyslnie), 1 - tak
+mp_winlimit 0 // limit rund do wygrania, jak jakas druzyna osiagnie te wartosc to nastepuje zmiana mapy, 0 - brak limitu (standard)
+pausable 0 // 0 (standard) nie pozwala graczom pauzowac gry na serwerze, 1 - pozwala, czasem na meczach sie tak ustawia
+sv_maxspeed 320 // maksymalna predkosc biegu gracza , standard (320)
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// obserwatorzy
+allow_spectators 1 // pozwalaj na obserwatorow (osoby kompletnie nie grajace), 1 - tak (standard), 0 - nie, 
+mp_fadetoblack 0 // 1 - ekran sie sciemnia po smierci gracza (wymagane na niektorych meczach), 0 - bez sciemnienia
+mp_forcecamera 2 // forsuj spectarora na: 0 - nie forsuj, 1 - widok z oczu gracza i z chase mode , 2 - tylko widok z oczu gracza, zalecana wartosc 1 albo 2
+mp_forcechasecam 1 // 0 - gracz moze latac po calej mapie, 1 - mozna ogladac typo swoich tp, 2 - klient nie rusza sie z miejsca gdzie umarl
+ 
+mp_autokick 0 // automatyczne kickowanie za zabijanie swoich albo dlugie nie ruszanie sie z miejsca
+sv_timeout 120 // czas w sekundach, jesli gracz nie odpowie w tym czasie uznawany jest za odlaczony od serwera (jak komus sie komp zwiesi/padnie na chwile lacze)
+sv_spectatormaxspeed 500 // maksymalna predkosc latania obserwatora , normalny gracz biega z predkoscia 320, standard jest 500
+mp_chattime 3 // po ilu sekundach po osiagnieciu timelimitu/maxrounds zmienia sie mapa
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// inne 
+mp_autocrosshair 0 // default 0
+sv_aim 0 //0 ((standard) wylacza autocelowanie, 1 - zalacza auto celowanie (nie zalecane)
+sv_airaccelerate 10 // akcleracja w powietrzu (bunnyjump), wartosc od 0 do 10 , 10 standardowo
+sv_airmove 1 // pozwala na ruch w powietrzu (bunnyjump), 1 - tak (standard), 0 - nie
+sv_challengetime 150 // czas w sekundach, jesli gracz sie nie podlaczy do gry w tym czasie bedzie uznawany za odlaczonego, zwieksz jesli gracze maja slabe kompy albo duzo sciagaja z serwera :D
+sv_cheats 0 // 0 (standard) nie pozwala na komendy give weapon, god, noclip i takie tam, 1 - dla deweloperow map albo serwero for fun
+sv_clienttrace 1 // (standard) 1
+sv_friction 4 // poslizg na powierzchni podczas biegania, ma wplyw na predkosc kompletnego zatrzymania sie, 4 (standard)
+sv_gravity 800 // grawitacja, domyslnie 800, im wiecej tym trudniej skakac (przy pewnych wartosciach zejscie z malego schodka jest smiertelne a granaty padaja pod nogami)
+                // 0 wylacza grawitacje - jak podskoczysz to juz nie upadniesz
+                // wartosc 100, 200, 400 sanajczesciej spotykane na serwerach niekonwecjonalnych
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// status serwera poprzez www
+// sprawdzenie statusu serwera tez zzera troche procesora i lacza, domyslne wartosci sa wystarczajace
+ 
+max_queries_global 20 // jak czesto mozna w sumie sprawdzic status serwera
+max_queries_sec 3 // jak czesto klient moze sprawdzac status serwera (all seeing eye, skrypty www)
+max_queries_window 30 // rozmiar okna czasowego na sprawdzanie zapytan ,jak masz problemy z timeoutem w hlsw ustaw na 10
+ 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// ekstra konfigi
+//exec addons/wwcl/scripts/wwcl_config.cfg // wykonaj confgi wwcl (jesli posiadasz ten plugin, a jak nie to nic zlego sie nie stanie)
+//exec addons/cdeath/cdeath.cfg // wykonaj confgi Cheating-Death (jesli posiadasz ten plugin, a jak nie to nic zlego sie nie stanie)
+ 
+//say "Server.cfg loaded" // ta linia odkomentowana czasem sie przydaje przy wykonywaniu zdalnej komendy
+//echo "Server.cfg loaded" // to samo co wyzej, ale aby bylo zalogowane musi byc zmienna mp_logecho 1
+                        // rcon exec server.cfg
+                        // wtedy latwiej sie upewnic ze dobrze wpisalismy komende
+ 
+// koniec 
