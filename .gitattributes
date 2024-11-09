@@ -17,5 +17,5 @@
 *.RTF	 diff=astextplain
 
 # Large files
-*.bsp filter=lfs diff=lfs merge=lfs -text
+#*.bsp filter=lfs diff=lfs merge=lfs -text
 *.mmdb filter=lfs diff=lfs merge=lfs -text
