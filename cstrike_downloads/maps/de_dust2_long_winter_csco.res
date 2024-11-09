@@ -1,0 +1,14 @@
+gfx/env/1snowlake_bk.tga
+gfx/env/1snowlake_dn.tga
+gfx/env/1snowlake_ft.tga
+gfx/env/1snowlake_lf.tga
+gfx/env/1snowlake_rt.tga
+gfx/env/1snowlake_up.tga
+maps/de_dust2_long_winter_csco.bsp
+maps/de_dust2_long_winter_csco.nav
+//maps/de_dust2_long_winter_csco.txt
+models/mil_crategibs.mdl
+//overviews/de_dust2_long_winter_csco.bmp
+//overviews/de_dust2_long_winter_csco.txt
+sound/ambience/wind.wav
+sound/ambience/wind1.wav
