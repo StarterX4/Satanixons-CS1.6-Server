@@ -1344,3 +1344,36 @@ GM_2CHOOSE gman/gman_choose2
 GM_WISE gman/gman_wise
 GM_REGRET gman/gman_noreg
 GM_WONTWORK gman/gman_nowork
+
+//DEMO NEWAUDIO
+
+BA_1SAT barney/c3a1_ba_1sat
+SCI_2SAT scientist/c3a1_sci_2sat
+BA_3SAT barney/c3a1_ba_3sat
+SCI_4SAT scientist/c3a1_sci_4sat
+BA_5SAT barney/c3a1_ba_5sat
+SCI_6SAT scientist/c3a1_sci_6sat
+
+BA_6SAT barney/c1a4_ba_octo4
+BA_7SAT barney/c1a4_ba_octo3
+SCI_7SAT scientist/scream07
+SCI_8SAT scientist/scream04
+
+//WS CORRECTION
+
+SC_DYING scientist/c1a4_dying.wav
+
+//ROCKET_FRENZY
+
+//rocket launch sequence and countdown
+RF_ROCKET_ARMED vox/buzwarn deeoo deeoo attention satellite rocket loading bay reports status green. rocket launch system armed
+RF_LAUNCH_START vox/bizwarn bizwarn(p101) bizwarn(p102) warning bizwarn(p103) bizwarn(p104) bizwarn(p105) satellite rocket launch system activated. evacuate central silo chamber immediately
+RF_90SEC vox/bizwarn(p106) bizwarn(p107) bizwarn(p108) ninety seconds until launch
+RF_WARNING vox/bizwarn(p109) bizwarn(p110) bizwarn(p111) warning. extreme(p105) danger of sudden exposure to temperature hazard from rapid(p99) rocket(p98) propulsion(p97) decompression(p96). vacate silo now
+RF_60SEC vox/bizwarn(p112) bizwarn(p113) bizwarn(p114) all systems nominal sixty seconds until launch
+RF_WARNING2 vox/bizwarn(p115) bizwarn(p116) bizwarn(p117) attention. fuel accelerator activated. danger of extreme heat and fire egress from rocket engine
+RF_30SEC vox/bizwarn(p118) bizwarn(p119) bizwarn(p120) thirty seconds remaining evacuate now 	 
+RF_20SEC vox/bizwarn(p121) bizwarn(p122) bizwarn(p123) twenty seconds
+RF_SAT_ACTIVATE vox/bizwarn(p124) bizwarn(p125) (p50) bizwarn deeoo deeoo deeoo (p100) launch propulsion(p99) system(p98) engaged(p97)
+RF_COUNTDOWN vox/ten deeoo(p50) nine deeoo(p51) eight deeoo(p52) seven deeoo(p53) six deeoo(p54) five deeoo(p55) four deeoo(p56) three deeoo(p57) two deeoo(p58) one deeoo(p59) bizwarn(p50) bizwarn(p50) bizwarn(p50) launch is go(p80) bizwarn(p50) bizwarn(p50) bizwarn(p50)
+RF_SUCCESS vox/deeoo satellite rocket away(p97) and accelerating(p105). electromagnetic status acquisition systems acquired and aligned across antenna deeoo deeoo have a(p110) secure(p75) day deeoo(p50)
