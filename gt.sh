@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (c) 2023 StarterX4 <starterx4@gmail.com>
+# Copyright (c) 2023-2024 Dominik Adrian Grzywak <starterx4@gmail.com>
 # This software is licensed under the MIT license
 
 # THIS SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
@@ -7,7 +7,7 @@
 # NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-version="0.1 (generic)"
+version="0.2 (generic)"
 function gittools() {
     while getopts ac:h"-help"psu:U: flag
     do
@@ -16,8 +16,8 @@ function gittools() {
             c) commit+="git commit -m '${OPTARG}'" >&2 ;;
             p) push="git push" >&2 ;;
             s) sync="git pull origin" >&2 ;;
-            u) update="rm -r OUTDIR/*; rsync -R $(git diff --name-only HEAD~${OPTARG}) OUTDIR" >&2 ;;
-            U) upbycomms="rm -r OUTDIR/*; rsync -R $(git diff --name-only '${OPTARG}') OUTDIR" >&2 ;;
+            u) H='HEAD~' update >&2 ;;
+            U) update >&2 ;;
             h|-help|*) manual >&2 ;;
         esac
     done
@@ -35,8 +35,6 @@ function gittools() {
     eval "$add"
     eval "$commit"
     eval "$push"
-    eval "$update"
-    eval "$upbycomms"
 }
 
 function manual() {
@@ -54,7 +52,38 @@ function manual() {
     echo    "  -U COMMIT     Update OUTDIR with changes between specified"
     echo    "                COMMITS or HEAD (rsync required)"
     echo    "  -h, --help    Display this help message"
+    echo    "Example:"
+    echo    "  $(basename "$0") -ap -c \"Fixed bugs...\" -u 2"
     exit 0
 }
+
+function update() {
+    # Check if rsync is installed
+    if ! command -v rsync &>/dev/null;
+    then
+        echo "Error: rsync is not installed."
+        exit 1
+    fi
+
+    # Check if the user has permission to write to the OUTDIR directory
+    if ! sudo -u $(whoami) test -w OUTDIR;
+    then
+        echo "Error: The user does not have permission to write to the OUTDIR directory."
+        exit 1
+    fi
+
+    # Check if the OUTDIR directory is empty, and if it is not, purge it's contents
+    if [ -n "$(ls -A OUTDIR)" ];
+    then
+        rm -r OUTDIR/{..?*,.[!.]*,*} 2>/dev/null;
+    else
+        true;
+    fi
+    
+    # Get the files list from the specified commits and copy them to the OUTDIR dir
+    rsync -R $(git diff --name-only ${H}${OPTARG}) OUTDIR;
+    exit 0
+}
+
 # Call the function with the command line arguments
 gittools "$@"
